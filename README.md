@@ -1,89 +1,82 @@
-# How to Set Up Minita: A Deployment Guide
-This guide will help you set up Minita, an automated environment for deploying applications.
+# How to Set Up Entropy: A Deployment Guide
 
-## Prerequisites
+To set up a validator node for the Entropy network, follow these steps. This guide provides detailed instructions, including code snippets and commands to ensure you can get your node running efficiently.
 
-Before you begin, make sure you have the following prerequisites:
+### 1. **System Requirements**
+Ensure your system meets the following specifications:
+- **Operating System**: Linux (Ubuntu preferred) or macOS.
+- **Node.js**: Version 20.9.0 or higher (check using `node --version`).
+- **NPM**: Version 7 or higher (check using `npm --version`).
 
-Node.js version 16 or higher installed.
+### 2. **Install the Entropy CLI**
+The CLI is the primary tool to interact with the Entropy network.
 
-npm version 7 or higher installed.
-
-Access to the Initia repository and deployment server.
-
-## Step 1: Clone the Repository
-
-Start by cloning the project repository from GitHub or your Git server. You can do this by using the following command:
-
+```bash
+npm install --global @entropyxyz/cli
 ```
-git clone https://github.com/your-repo/minitia.git
+
+Once installed, you can verify it using:
+
+```bash
+entropy --version
 ```
-Once cloned, navigate into the project directory:
 
+### 3. **Set Up an Entropy Account**
+Run the Entropy CLI to create or import an account:
+
+```bash
+entropy
 ```
-cd minitia
+
+1. Navigate to **Manage Accounts** and choose **Create/Import Account**.
+2. When prompted, type `n` to create a new key.
+3. Name your account, and the CLI will generate an address like this:
+
+   ```
+   {
+       name: MyValidatorAccount
+       address: 5HMnksPMRPqsDqyCj31VoQFgpiswsr12bk2YTyfMUEKCm2bv
+   }
+   ```
+
+   Save the address, as you'll need it for future steps.
+
+### 4. **Obtain Test Funds**
+To participate in the network and validate transactions, you need test funds:
+1. Log in to GitHub and visit [Entropy’s community discussions](https://github.com/entropyxyz/community).
+2. Start a new discussion under **Get Test Funds**.
+3. Provide your account address and request the desired amount of test tokens. Wait for the Entropy team to approve and transfer the funds.
+
+### 5. **Register Your Validator Node**
+Registering your node announces it to the network:
+
+1. Go back to the CLI main menu and select **Register**.
+2. The CLI will confirm if your address is successfully registered.
+
+```bash
+? Select Action
+  Manage Accounts
+> Register
 ```
-## Step 2: Install Dependencies
 
-After cloning the repository, you need to install the project dependencies using npm. Run the following command:
+The CLI should output a success message if everything is set up correctly.
 
+### 6. **Configure the Validator Node**
+To configure your validator node:
+1. Ensure your environment variables and settings are correctly set up (e.g., node ID, IP addresses). The configuration files are typically stored in the `.entropy` directory.
+2. Follow instructions specific to setting up node encryption and communication protocols as detailed in the [Entropy documentation](https://docs.entropy.xyz).
+
+### 7. **Run the Validator**
+Finally, start your validator node. Use the CLI or directly run the node binary from your terminal:
+
+```bash
+entropy start-validator --config /path/to/config/file
 ```
-npm install
-```
-This will install all required packages specified in package.json.
 
-## Step 3: Configure Environment Variables
+Monitor the logs to confirm that your node is syncing with the network and validating blocks correctly.
 
-Minita requires some environment-specific configurations. Create a .env file in the root of the project and add the necessary environment variables:
+### Additional Resources
+- Refer to [Entropy's official documentation](https://docs.entropy.xyz) for deeper dives into validator settings, performance monitoring, and troubleshooting.
+- Join the [Entropy Discord server](https://discord.com/invite/entropy) for community support.
 
-```
-touch .env
-```
-Here’s an example of what your .env file might look like:
-
-```
-DATABASE_URL=your_database_url
-SECRET_KEY=your_secret_key
-API_URL=https://api.yourapp.com
-```
-Make sure to replace the placeholder values with your actual environment details.
-
-## Step 4: Build the Project
-
-Once your environment variables are set up, build the project by running the following command:
-
-```
-npm run build
-```
-This compiles your project into a production-ready state.
-
-## Step 5: Run the Application
-
-To start the application locally for testing or development, use the following command:
-
-```
-npm start
-```
-The app should now be running, and you can access it at http://localhost:3000 or the port specified in your configuration.
-
-## Step 6: Deploying to Production
-
-To deploy Minita in a production environment, follow these steps:
-
-Build the Production Version
-
-Before deploying, ensure the project is built for production:
-
-```
-npm run build
-```
-Deploy the Code
-
-Use your preferred deployment method (e.g., SSH, FTP, or a continuous integration (CI) tool) to upload the built files to your server.
-
-Set up Server Configuration
-
-Ensure your server is configured to point to the entry point of the application. For example, with NGINX or Apache, you would set the root directory to the build folder.
-
-Restart the Server
-After deploying the code, restart the server to apply the changes.
+This guide should provide you with a solid foundation for setting up an Entropy validator node and participating in the network. If you encounter any issues, the official docs and community are excellent resources for further assistance.
